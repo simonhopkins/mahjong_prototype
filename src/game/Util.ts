@@ -36,5 +36,24 @@ export default class Util {
             .fill(0)
             .map((_, i) => `Unnamed_${(i + 16).toString().padStart(3, "0")}`);
     }
+
+    static GetGleamFrameNames() {
+        return new Array(8)
+            .fill(0)
+            .map((_, i) => `gleam_${(i + 1).toString().padStart(2, "0")}`);
+    }
+
+    static GetSelectionOutlineFrameNames() {
+        return new Array(2)
+            .fill(0)
+            .map((_, i) => `selection_${(i + 1).toString().padStart(2, "0")}`);
+    }
 }
+
+
+
+
+
+
+
 

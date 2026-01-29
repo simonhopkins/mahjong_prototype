@@ -35,9 +35,19 @@ export class Preloader extends Scene {
         this.load.image("tile", "/Magic/tile.png");
         this.load.image("tileMask", "fulltilemask.png");
         this.load.image("matchGlowBacking", "matchGlowBacking.png");
+        this.load.image("redBackdrop", "Red.png");
         for (const frameName of Util.GetSparkAnimFrameNames()) {
-            console.log(frameName, `/TileHitSpark/${frameName}.png`);
             this.load.image(frameName, `/TileHitSpark/${frameName}.png`);
+        }
+
+        for (const frameName of Util.GetGleamFrameNames()) {
+            this.load.image(frameName, `/gleamAnim/${frameName}.png`);
+        }
+        for (const frameName of Util.GetSelectionOutlineFrameNames()) {
+            this.load.image(
+                frameName,
+                `/selectionOutlineAnim/${frameName}.png`
+            );
         }
     }
 
@@ -49,6 +59,14 @@ export class Preloader extends Scene {
         this.scene.start("MainScene");
     }
 }
+
+
+
+
+
+
+
+
 
 
 
