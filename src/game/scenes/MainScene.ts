@@ -36,7 +36,7 @@ export class MainScene extends Scene {
             .setPosition(this.cameras.main.centerX, this.cameras.main.centerY)
             .setOrigin(0.5, 0.5)
             .setScale(3, 3);
-
+        this.resetBoard();
         this.GenerateBoard(MahjongBoardShapes.WizardHat());
         const bounds = this.GetBounds();
         const currentTargetZoom = MainScene.GetTargetZoom(
@@ -165,7 +165,6 @@ export class MainScene extends Scene {
     }
     private GenerateBoard(board: number[][][]) {
         const tileNames = Util.GetTileNames();
-        const tileSize = MahjongTileView.GetTileSize();
         let level = 0;
         //generate the board
         const mahjongTileCallbacks: MahjongTileCallbacks = {
@@ -176,11 +175,6 @@ export class MainScene extends Scene {
             //level is a 2d array
             for (let row = 0; row < levelArr.length; row++) {
                 for (let col = 0; col < levelArr[row].length; col++) {
-                    const xCoord = (col * tileSize.x) / 2;
-                    const yCoord =
-                        (row * tileSize.y) / 2 -
-                        level * tileSize.z -
-                        tileSize.z;
                     const boardCoord = new Phaser.Math.Vector3(col, row, level);
                     if (levelArr[row][col] == 1) {
                         const rndTile = Phaser.Math.RND.pick(tileNames);
@@ -276,8 +270,6 @@ export class MainScene extends Scene {
         //state held in here probably
         //fade in backing glow
         //move tiles to the top
-        this._disableInput = true;
-        this._disableInput = false;
         this._waste.push(this._selectedTiles);
         this._selectedTiles = [];
         const tileViews = matchedTiles.map((id) => this.tileMap.get(id)!);
@@ -291,7 +283,6 @@ export class MainScene extends Scene {
             this.cameras.main.worldView.centerX,
             this.cameras.main.worldView.centerY
         );
-        console.log(center);
         const matchGlowBacking = this.add
             .sprite(0, 0, "matchGlowBacking")
             .setAlpha(0);
@@ -347,8 +338,6 @@ export class MainScene extends Scene {
                 },
             ],
         });
-        leftTile.DeselectAnimation();
-        rightTile.DeselectAnimation();
         const rightMoveTween = this.tweens.chain({
             targets: rightTile,
             tweens: [
@@ -377,6 +366,8 @@ export class MainScene extends Scene {
                 },
             ],
         });
+        leftTile.DeselectAnimation();
+        rightTile.DeselectAnimation();
         const timeline = this.add
             .timeline([
                 {
@@ -414,16 +405,11 @@ export class MainScene extends Scene {
                 {
                     at: 1300,
                     run: () => {
-                        console.log("HJE<<LOOOOO");
-                        console.log(
-                            this._waste.flat().length,
-                            Array.from(this.tileMap.values()).length
-                        );
+                        //game over condition
                         if (
                             this._waste.flat().length ==
                             Array.from(this.tileMap.values()).length
                         ) {
-                            console.log("OPEN WINDOW");
                             window
                                 ?.open(
                                     "https://blob.gifcities.org/gifcities/NNZ5KIGY3IQO6IYR27VW4DEVX6TRUCOD.gif",
@@ -506,6 +492,14 @@ export class MainScene extends Scene {
     }
     OnMahjongTileViewPointerUp(id: number) {}
 }
+
+
+
+
+
+
+
+
 
 
 

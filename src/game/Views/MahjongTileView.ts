@@ -72,8 +72,6 @@ export default class MahjongTileView extends Phaser.GameObjects.Container {
             },
             this
         );
-        // this.on("pointerover", this.onPointerOver, this);
-        // this.on("pointerout", this.onPointerOut, this);
     }
 
     public Id() {
@@ -115,7 +113,6 @@ export default class MahjongTileView extends Phaser.GameObjects.Container {
         });
         this._gleamAnim.alpha = 1;
         this._gleamAnim.play("gleamAnim");
-
         this._selectionOutlineAnim.alpha = 1;
     }
     public DeselectAnimation() {
@@ -135,19 +132,13 @@ export default class MahjongTileView extends Phaser.GameObjects.Container {
         this._gleamAnim.stop();
         this._selectionOutlineAnim.alpha = 0;
     }
-
-    public AnimatePulse(): void {
-        this.scene.tweens.add({
-            targets: this,
-            scaleX: 1.4,
-            scaleY: 1.4,
-            duration: 300,
-            ease: "Sine.easeInOut",
-            yoyo: true,
-            repeat: 0,
-        });
-    }
 }
+
+
+
+
+
+
 
 
 
